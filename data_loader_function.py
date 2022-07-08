@@ -78,7 +78,7 @@ def data_loader(batch_size=128):
 
     print('Num training articles: ', len(train_dataset))
     print('Num validation articles: ', len(val_dataset))
-    print('Num validation articles: ', len(test_dataset))
+    print('Num test articles: ', len(test_dataset))
 
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size)
     val_dataloader = DataLoader(val_dataset, batch_size=batch_size)
