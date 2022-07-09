@@ -160,9 +160,9 @@ def train_net(net, batch_size, learning_rate, num_epochs, momentum, train_loader
     plt.show()
 
 
-def test_model(net_type, use_cuda, model_path, data_loader, criterion):
+def test_model(net_type, parameters, use_cuda, model_path, data_loader, criterion):
     state = torch.load(model_path)
-    net = net_type()
+    net = net_type(parameters[0], parameters[1], parameters[2])
     net.load_state_dict(state)
     if use_cuda and torch.cuda.is_available():
         net.cuda()
