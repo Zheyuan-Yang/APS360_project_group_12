@@ -136,13 +136,13 @@ def train_net(net, batch_size, learning_rate, num_epochs, momentum, train_loader
     # plotting
     plt.title("Training Loss Curve")
     plt.plot(epochs, train_losses, label="Train")
-    plt.xlabel("Iterations")
+    plt.xlabel("Epochs")
     plt.ylabel("Train Loss")
     plt.show()
 
     plt.title("Training Accuracy Curve")
     plt.plot(epochs, train_acc, label="Training")
-    plt.xlabel("Iterations")
+    plt.xlabel("Epochs")
     plt.ylabel("Training Accuracy")
     plt.show()
 
