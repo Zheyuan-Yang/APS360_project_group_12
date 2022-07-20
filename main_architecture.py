@@ -15,9 +15,10 @@ class LSTM_news_classifier(nn.Module):
         self.hidden_size = hidden_size
         self.rnn = nn.LSTM(input_size=input_size, hidden_size=hidden_size, batch_first=True)
         self.fc = nn.Linear(hidden_size, num_class)
+        self.af = nn.Sigmoid()
 
     def forward(self, x):
         h0 = torch.zeros(1, x.size(0), self.hidden_size)
         c0 = torch.zeros(1, x.size(0), self.hidden_size)
         out, (h_n, c_n) = self.rnn(x, (h0, c0))
-        return self.fc(out[:,-1,:])
+        return self.af(self.fc(out[:,-1,:]))

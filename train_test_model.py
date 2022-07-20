@@ -23,6 +23,7 @@ def get_model_path(name, batch_size, learning_rate, epoch, exercise_code):
     path = "./model/" + path
     return path
 
+
 def get_csv_path(name, batch_size, learning_rate, exercise_code):
     """ Generate a name for the csv file consisting of all training and validation data
 
@@ -35,6 +36,11 @@ def get_csv_path(name, batch_size, learning_rate, exercise_code):
     path = "./model/" + path
     return path
 
+
+def get_fig_path(name1, name2, batch_size, learning_rate, exercise_code):
+    path = "fig_{0}_bs{1}_lr{2}_exercise_{3}_{4}.png".format(name1, batch_size, learning_rate, exercise_code, name2)
+    path = "./model/" + path
+    return path
 
 def find_the_best_model(val_acc):
     """ Find the model with the best validation accuracy
@@ -138,25 +144,28 @@ def train_net(net, batch_size, learning_rate, num_epochs, momentum, train_loader
     plt.plot(epochs, train_losses, label="Train")
     plt.xlabel("Epochs")
     plt.ylabel("Train Loss")
+    plt.savefig(get_fig_path(net.name, "Training_Loss", batch_size, learning_rate, exercise_code))
     plt.show()
 
     plt.title("Training Accuracy Curve")
     plt.plot(epochs, train_acc, label="Training")
     plt.xlabel("Epochs")
     plt.ylabel("Training Accuracy")
+    plt.savefig(get_fig_path(net.name, "Training_Acc", batch_size, learning_rate, exercise_code))
     plt.show()
-
 
     plt.title("Validation Loss Curve")
     plt.plot(epochs, val_losses, label="Validation")
     plt.xlabel("Epochs")
     plt.ylabel("Train Loss")
+    plt.savefig(get_fig_path(net.name, "Val_Loss", batch_size, learning_rate, exercise_code))
     plt.show()
 
     plt.title("Validation Accuracy Curve")
     plt.plot(epochs, val_acc, label="Validation")
     plt.xlabel("Epochs")
     plt.ylabel("Validation Accuracy")
+    plt.savefig(get_fig_path(net.name, "Val_Acc", batch_size, learning_rate, exercise_code))
     plt.show()
 
 
