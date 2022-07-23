@@ -11,7 +11,7 @@ import time
 class LSTM_news_classifier(nn.Module):
     def __init__(self, input_size, hidden_size, num_class):
         super(LSTM_news_classifier, self).__init__()
-        self.name = "LSTM_1"
+        self.name = "LSTM_2"
         self.hidden_size = hidden_size
         self.rnn = nn.LSTM(input_size=input_size, hidden_size=hidden_size, batch_first=True)
         self.fc = nn.Linear(hidden_size, num_class)

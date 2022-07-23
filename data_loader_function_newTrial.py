@@ -4,7 +4,7 @@ import torch
 import torchtext
 from torch.utils.data import TensorDataset, DataLoader
 
-def data_loader_new(train_dataloader, val_dataloader, test_dataloader, batch_size=128):
+def data_loader_new(batch_size=128):
     # load data from csv file
     fields = ['news_article', 'news_category']
 
@@ -37,7 +37,7 @@ def data_loader_new(train_dataloader, val_dataloader, test_dataloader, batch_siz
 
     # stopwords to eliminate useless words
     stopwords = []
-    stop = open('/content/stopwords.txt', encoding="utf-8")
+    stop = open('./content/stopwords.txt', encoding="utf-8")
     for line in stop:
       stopwords.append(line.strip())
     stop.close()
@@ -85,3 +85,5 @@ def data_loader_new(train_dataloader, val_dataloader, test_dataloader, batch_siz
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size)
     val_dataloader = DataLoader(val_dataset, batch_size=batch_size)
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size)
+
+    return train_dataloader, val_dataloader, test_dataloader
