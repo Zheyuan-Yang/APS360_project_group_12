@@ -12,6 +12,6 @@
 
 3. GUI_main.py
 
-   To use graphic interface, run this file
+   To use graphic interface, run this file.
 
 ## General Questions and Comments
