@@ -69,7 +69,7 @@ def save_to_csv(path, epochs, train_losses, train_acc, val_losses, val_acc, head
     write_csv.writerows(organized_data)
 
 
-def train_net(net, batch_size, learning_rate, num_epochs, momentum, train_loader, val_loader, exercise_code):
+def train_net(net, batch_size, learning_rate, num_epochs, train_loader, val_loader, exercise_code):
     assert num_epochs > 0, "num_epochs must be an integer that is greater than 0"
     assert learning_rate > 0, "learning_rate must be greater than 0"
     torch.manual_seed(1000)
