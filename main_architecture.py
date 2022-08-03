@@ -37,3 +37,24 @@ class LSTM_news_classifier_2(nn.Module):
         c0 = torch.zeros(1, x.size(0), self.hidden_size)
         out, (h_n, c_n) = self.rnn(x, (h0, c0))
         return self.af(self.fc(out[:,-1,:]))
+
+
+class Transformer_news_classifier_1(nn.Module):
+    def __init__(self, input_size, hidden_size, num_class):
+        super(Transformer_news_classifier_1, self).__init__()
+        self.name = "Transformer_news_classifier_1"
+        self.linear_q = nn.Linear(input_size, hidden_size)
+        self.linear_k = nn.Linear(input_size, hidden_size)
+        self.linear_v = nn.Linear(input_size, hidden_size)
+        self.linear_x = nn.Linear(input_size, hidden_size)
+        self.attention = nn.MultiheadAttention(hidden_size, num_heads=4, batch_first=True)
+        self.fc1 = nn.Sequential(nn.Linear(hidden_size, hidden_size), nn.ReLU(), nn.Linear(hidden_size, hidden_size))
+        self.norm = nn.LayerNorm(hidden_size)
+        self.fc2 = nn.Linear(hidden_size, num_class)
+
+    def forward(self, x):
+        q, k, v = self.linear_q(x), self.linear_k(x), self.linear_v(x)
+        x = self.norm(self.linear_x(x) + self.attention(q, k, v)[0])
+        x = self.norm(x + self.fc1(x))
+        x = torch.sum(x, 1)
+        return self.fc2(x)
