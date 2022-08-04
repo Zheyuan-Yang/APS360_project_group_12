@@ -1,0 +1,6 @@
+Aug_4_4_10 (50, 64, 7): 84
+Test result:
+Correct: 1340	Total: 1560	Accuracy: 0.8589743589743589	Loss: 0.03658082995277185
+Aug_4_4_30 (50, 128, 7): 17
+Test result:
+Correct: 1383	Total: 1560	Accuracy: 0.8865384615384615	Loss: 0.028182475173320527
