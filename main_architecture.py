@@ -38,7 +38,7 @@ class LSTM_news_classifier_2(nn.Module):
         out, (h_n, c_n) = self.rnn(x, (h0, c0))
         return self.af(self.fc(out[:,-1,:]))
 
-
+# I made this a bidirectional LSTM.
 class LSTM_news_classifier_3(nn.Module):
     def __init__(self, input_size, hidden_size, num_class):
         super(LSTM_news_classifier_3, self).__init__()
@@ -53,6 +53,20 @@ class LSTM_news_classifier_3(nn.Module):
         out, (h_n, c_n) = self.rnn(x, (h0, c0))
         return self.fc(out[:,-1,:])
 
+
+class LSTM_news_classifier_4(nn.Module):
+    def __init__(self, input_size, hidden_size, num_class):
+        super(LSTM_news_classifier_4, self).__init__()
+        self.name = "LSTM_4"
+        self.hidden_size = hidden_size
+        self.rnn = nn.LSTM(input_size=input_size, hidden_size=hidden_size, batch_first=True, bidirectional=True, num_layers=4)
+        self.fc = nn.Linear(4 * 2 * hidden_size, num_class)
+
+    def forward(self, x):
+        h0 = torch.zeros(8, x.size(0), self.hidden_size)
+        c0 = torch.zeros(8, x.size(0), self.hidden_size)
+        out, (h_n, c_n) = self.rnn(x, (h0, c0))
+        return self.fc(h_n.view(-1, self.hidden_size * 4 * 2))
 
 class Transformer_news_classifier_1(nn.Module):
     def __init__(self, input_size, hidden_size, num_class):
