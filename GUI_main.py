@@ -3,7 +3,7 @@ from PyQt6 import uic
 import sys
 import torchtext
 import torch
-from main_architecture import LSTM_news_classifier
+from main_architecture import LSTM_news_classifier, LSTM_news_classifier_3
 import train_test_model
 import pandas as pd
 
@@ -63,8 +63,8 @@ class NewsClassifierUI(QMainWindow):
 
 if __name__ == '__main__':
     News_classifier_app = QApplication(sys.argv)
-    net_parameters = (50, 64, 7)
-    model_path = train_test_model.get_model_path("LSTM_1", 128, 0.01, 16, "July_8_8_33")
-    info = (LSTM_news_classifier, model_path, net_parameters)
+    net_parameters = (50, 128, 7)
+    model_path = train_test_model.get_model_path("LSTM_3", 128, 0.01, 17, "Aug_4_4_30")
+    info = (LSTM_news_classifier_3, model_path, net_parameters)
     News_classifier_ui = NewsClassifierUI(info)
     News_classifier_app.exec()
