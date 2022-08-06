@@ -42,6 +42,17 @@ def data_loader(batch_size=128):
       stopwords.append(line.strip())
     stop.close()
 
+    # choose first 61 words
+    for ix in X_train:
+      if (len(ix) > 61):
+        ix = ix[0:61]
+    for ix in X_val:
+      if (len(ix) > 61):
+        ix = ix[0:61]
+    for ix in X_test:
+      if (len(ix) > 61):
+        ix = ix[0:61]
+    
     # utilize Glove6B for embedding
     glove = torchtext.vocab.GloVe(name='6B', dim=50)
 
@@ -75,10 +86,6 @@ def data_loader(batch_size=128):
     train_dataset = TensorDataset(X_train_t, Y_train_t)
     val_dataset = TensorDataset(X_val_t, Y_val_t)
     test_dataset = TensorDataset(X_test_t, Y_test_t)
-
-    print('Num training articles: ', len(train_dataset))
-    print('Num validation articles: ', len(val_dataset))
-    print('Num test articles: ', len(test_dataset))
 
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size)
     val_dataloader = DataLoader(val_dataset, batch_size=batch_size)
