@@ -170,21 +170,13 @@ def train_net(net, batch_size, learning_rate, num_epochs, train_loader, val_load
 
 
 def test_model(net_type, parameters, use_cuda, model_path, data_loader, criterion):
-    state = torch.load(model_path)
+    state = torch.load(model_path, map_location=torch.device('cpu'))
     net = net_type(parameters[0], parameters[1], parameters[2])
     net.load_state_dict(state)
-    if use_cuda and torch.cuda.is_available():
-        net.cuda()
-        print('CUDA is available!  Training on GPU ...')
-    else:
-        print('CUDA is not available.  Training on CPU ...')
     correct = 0
     total_loss = 0
     total = 0
     for articles, labels in data_loader:
-        if use_cuda and torch.cuda.is_available():
-            articles = articles.cuda()
-            labels = labels.cuda()
         out = net(articles)
         pred = torch.squeeze(out.max(1, keepdim=True)[1], 1)
         correct = correct + pred.eq(torch.argmax(labels, dim=1)).sum().item()

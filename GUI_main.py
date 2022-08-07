@@ -30,7 +30,7 @@ def convert_text_to_tensor(text):
 
 
 def test_model(input_tensor, model_type, parameters, model_path):
-    state = torch.load(model_path)
+    state = torch.load(model_path, map_location=torch.device('cpu'))
     model = model_type(parameters[0], parameters[1], parameters[2])
     model.load_state_dict(state)
     out = model(input_tensor)
@@ -63,8 +63,8 @@ class NewsClassifierUI(QMainWindow):
 
 if __name__ == '__main__':
     News_classifier_app = QApplication(sys.argv)
-    net_parameters = (50, 128, 7)
-    model_path = train_test_model.get_model_path("LSTM_3", 128, 0.01, 17, "Aug_4_4_30")
+    net_parameters = (50, 256, 7)
+    model_path = train_test_model.get_model_path("LSTM_3", 256, 0.01, 16, "Aug_6_22_40_hidden_size_256")
     info = (LSTM_news_classifier_3, model_path, net_parameters)
     News_classifier_ui = NewsClassifierUI(info)
     News_classifier_app.exec()
