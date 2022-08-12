@@ -83,6 +83,7 @@ class Transformer_news_classifier_2(nn.Module):
         self.fc2 = nn.Linear(hidden_size, num_class)
 
     def forward(self, x):
+        # print(x.shape)
         for batch in range(x.shape[0]):
             for pos in range(x.shape[1]):
                 for i in range(x.shape[2]):

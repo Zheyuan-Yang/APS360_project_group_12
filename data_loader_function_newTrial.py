@@ -4,7 +4,7 @@ import torch
 import torchtext
 from torch.utils.data import TensorDataset, DataLoader
 
-fileNn = '/content/drive/MyDrive/APS360_project_group_12-main'
+fileNn = ''
 
 def skipFromHere(index):
     if index > 50:
@@ -16,13 +16,13 @@ def data_loader(batch_size=128):
     # load data from csv file
     fields = ['news_article', 'news_category']
 
-    train_data = pd.read_csv(fileNn + '/content/inshort_news_data-train.csv', header=0, encoding='ISO-8859-1',
+    train_data = pd.read_csv(fileNn + './content/inshort_news_data-train.csv', header=0, encoding='ISO-8859-1',
                              usecols=fields, skip_blank_lines=True)
-    val_data = pd.read_csv(fileNn + '/content/inshort_news_data-val.csv', header=0, encoding='ISO-8859-1',
+    val_data = pd.read_csv(fileNn + './content/inshort_news_data-val.csv', header=0, encoding='ISO-8859-1',
                            usecols=fields, skip_blank_lines=True)
-    test_data = pd.read_csv(fileNn + '/content/inshort_news_data-test.csv', header=0, encoding='ISO-8859-1',
+    test_data = pd.read_csv(fileNn + './content/inshort_news_data-test.csv', header=0, encoding='ISO-8859-1',
                             usecols=fields, skip_blank_lines=True)
-    new_data = pd.read_csv(fileNn + '/content/new_news_articles.csv', header=0, encoding='ISO-8859-1', usecols=fields,
+    new_data = pd.read_csv(fileNn + './content/new_news_articles.csv', header=0, encoding='ISO-8859-1', usecols=fields,
                            skip_blank_lines=True, skiprows=lambda x: skipFromHere(x))
     # read_csv seems have bugs for skip_blank_lines accoring to return value of what i tried for
     # new_data before and online forum, so i use skirows instead of skip_blank_lines
@@ -60,7 +60,7 @@ def data_loader(batch_size=128):
 
     # stopwords to eliminate useless words
     stopwords = []
-    stop = open(fileNn + '/content/stopwords.txt', encoding="utf-8")
+    stop = open(fileNn + './content/stopwords.txt', encoding="utf-8")
     for line in stop:
         stopwords.append(line.strip())
     stop.close()

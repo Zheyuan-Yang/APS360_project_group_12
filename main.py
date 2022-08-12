@@ -7,7 +7,7 @@ import torch.nn as nn
 
 News_model = main_architecture.Transformer_news_classifier_2(50, 256, 7)
 Train = True
-train_loader, val_loader, test_loader = data_loader_function.data_loader()
+train_loader, val_loader, test_loader, new_loader = data_loader_function_newTrial.data_loader()
 if Train:
     train_test_model.train_net(News_model, 128, 0.01, 100, train_loader, val_loader, 'Aug_12_03_30_hidden_size_256')
 else:
