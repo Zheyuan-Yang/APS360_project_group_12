@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
+from math import sin, cos
 import torch.nn.functional as F
 import torch.optim as optim
 import time
@@ -68,10 +69,10 @@ class LSTM_news_classifier_4(nn.Module):
         out, (h_n, c_n) = self.rnn(x, (h0, c0))
         return self.fc(h_n.view(-1, self.hidden_size * 4 * 2))
 
-class Transformer_news_classifier_1(nn.Module):
+class Transformer_news_classifier_2(nn.Module):
     def __init__(self, input_size, hidden_size, num_class):
-        super(Transformer_news_classifier_1, self).__init__()
-        self.name = "Transformer_news_classifier_1"
+        super(Transformer_news_classifier_2, self).__init__()
+        self.name = "Transformer_news_classifier_2"
         self.linear_q = nn.Linear(input_size, hidden_size)
         self.linear_k = nn.Linear(input_size, hidden_size)
         self.linear_v = nn.Linear(input_size, hidden_size)
@@ -82,6 +83,14 @@ class Transformer_news_classifier_1(nn.Module):
         self.fc2 = nn.Linear(hidden_size, num_class)
 
     def forward(self, x):
+        for batch in range(x.shape[0]):
+            for pos in range(x.shape[1]):
+                for i in range(x.shape[2]):
+                    if i % 2 == 0:
+                        pe = sin(pos / pow(10000, (2 * i / (x.shape[2]))))
+                    else:
+                        pe = cos(pos / pow(10000, (2 * (i - 1) / (x.shape[2]))))
+                    x[batch][pos][i] = x[batch][pos][i] + pe
         q, k, v = self.linear_q(x), self.linear_k(x), self.linear_v(x)
         x = self.norm(self.linear_x(x) + self.attention(q, k, v)[0])
         x = self.norm(x + self.fc1(x))
