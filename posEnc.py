@@ -4,8 +4,8 @@ import torch
 def encoding_1d(pos, dim):
     vec = torch.arange(pos)
 
-    if dim % 2 != 0:
-        return
+    # if dim % 2 != 0:
+    #     return
 
     emb = torch.zeros(vec.numel(), dim, dtype=torch.float)
 
