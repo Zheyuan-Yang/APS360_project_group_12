@@ -1,5 +1,9 @@
 # APS360 Group 12 Project
 
+## Final report
+
+See APS360_Final_report.pdf
+
 ## Function Usages
 
 1. train_test_model.py
