@@ -2,9 +2,9 @@
 
 ## Final report
 
-See APS360_Final_report.pdf
+   See APS360_Final_report.pdf
 
-## Function Usages
+## Usages of different files
 
 1. train_test_model.py
 
@@ -17,5 +17,3 @@ See APS360_Final_report.pdf
 3. GUI_main.py
 
    To use graphic interface, run this file.
-
-## General Questions and Comments
