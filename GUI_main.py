@@ -3,16 +3,17 @@ from PyQt6 import uic
 import sys
 import torchtext
 import torch
-from main_architecture import LSTM_news_classifier, LSTM_news_classifier_3
+from model import LSTM_news_classifier, LSTM_news_classifier_bidirectional
 import train_test_model
 import pandas as pd
+import os
 
 
 def convert_text_to_tensor(text):
     text_list = text.lower().split()
 
     stopwords = []
-    stop = open('./content/stopwords.txt', encoding="utf-8")
+    stop = open(os.path.join('content', 'stopwords.txt'), encoding="utf-8")
     for line in stop:
         stopwords.append(line.strip())
     stop.close()
@@ -54,6 +55,8 @@ class NewsClassifierUI(QMainWindow):
 
     def classify(self):
         article_text = self.article.toPlainText()
+        if len(article_text) == 0:
+            return
         text_tensor = convert_text_to_tensor(article_text)
         out = test_model(text_tensor, self.info[0], self.info[2], self.info[1])
         pred = torch.squeeze(out.max(1, keepdim=True)[1], 1)[0].item()
@@ -63,8 +66,8 @@ class NewsClassifierUI(QMainWindow):
 
 if __name__ == '__main__':
     News_classifier_app = QApplication(sys.argv)
-    net_parameters = (50, 256, 7)
-    model_path = train_test_model.get_model_path("LSTM_3", 256, 0.01, 16, "Aug_6_22_40_hidden_size_256")
-    info = (LSTM_news_classifier_3, model_path, net_parameters)
+    net_parameters = (50, 122, 7)
+    model_path = os.path.join('models', 'model_LSTM_3_bs244_lr0.01_epoch73_exercise_Aug_11_2_bidirectional_1_layers_hidden_size_122')
+    info = (LSTM_news_classifier_bidirectional, model_path, net_parameters)
     News_classifier_ui = NewsClassifierUI(info)
     News_classifier_app.exec()

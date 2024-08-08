@@ -1,19 +1,26 @@
-# APS360 Group 12 Project
+# APS360 Group 12 Project: Use LSTM to classify news
+
+## Introduction
+
+   This is a APS360 course project. It aims to classify news into 7 categories using LSTM model. For details, please see the pdf report in this branch.
+
+## Installation
+
+   ```
+   conda create -n NewsClassifier python=3.8
+   pip install -r requirements.txt
+   ```
+
+## GUI Inference
+
+   Run `python GUI_main.py`. Change line 70 to change the ckpt path.
+
+## Train and evaluate
+
+   Run `python main.py`.
+
+   To evaluate a model, run `python main.py --eval --ckpt_path <path to a checkpoint>`
 
 ## Final report
 
    See APS360_Final_report.pdf
-
-## Usages of different files
-
-1. train_test_model.py
-
-   In the train model function, all model state files and training csc files are saved at model folder. Uncomment line 83-85 and line 109-111 to enable cuda. To run it on colab, create a folder called model on the root directory. You can also change the path in `get_model_path` and `get_csv_path` if you want. 
-
-2. all_code.ipynb
-
-   You can run this in Google colab. Uncomment some lines to enable cuda.
-
-3. GUI_main.py
-
-   To use graphic interface, run this file.
