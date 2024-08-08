@@ -4,7 +4,7 @@ import sys
 import torchtext
 import torch
 from model import LSTM_news_classifier, LSTM_news_classifier_bidirectional
-import train_test_model
+import argparse
 import pandas as pd
 import os
 
@@ -58,16 +58,21 @@ class NewsClassifierUI(QMainWindow):
         if len(article_text) == 0:
             return
         text_tensor = convert_text_to_tensor(article_text)
-        out = test_model(text_tensor, self.info[0], self.info[2], self.info[1])
+        try:
+            out = test_model(text_tensor, self.info[0], self.info[2], self.info[1])
+        except:
+            print('Error. Please try again.')
         pred = torch.squeeze(out.max(1, keepdim=True)[1], 1)[0].item()
         self.result.setText(self.categories[pred])
 
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ckpt_path', default='models/model_LSTM_bidirectional')
+    args = parser.parse_args()
     News_classifier_app = QApplication(sys.argv)
     net_parameters = (50, 122, 7)
-    model_path = os.path.join('models', 'model_LSTM_3_bs244_lr0.01_epoch73_exercise_Aug_11_2_bidirectional_1_layers_hidden_size_122')
-    info = (LSTM_news_classifier_bidirectional, model_path, net_parameters)
+    info = (LSTM_news_classifier_bidirectional, args.ckpt_path, net_parameters)
     News_classifier_ui = NewsClassifierUI(info)
     News_classifier_app.exec()
